@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Main Step: Edit below title -->
+    <title>SAGI: Semantically Aligned and Uncertainty Guided AI Image Inpainting</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="SAGI: A model-agnostic pipeline for generating high-quality AI inpainted images with semantic alignment and uncertainty guidance. Includes the largest dataset of AI-generated inpaintings." />
+    <meta
+      name="keywords"
+      content="AI image inpainting, semantic alignment, uncertainty guidance, computer vision, image manipulation detection, deep learning, SAGI dataset"
+    />
+
+    <!-- Favicon for different platforms -->
+    <link
+      rel="icon"
+      href="Assets/Favicon/icons8-research-color-16.png"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      href="Assets/Favicon/icons8-research-color-32.png"
+      sizes="32x32"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      href="Assets/Favicon/icons8-research-color-70.png"
+      sizes="70x70"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      href="Assets/Favicon/icons8-research-color-72.png"
+      sizes="72x72"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      href="Assets/Favicon/icons8-research-color-96.png"
+      sizes="96x96"
+      type="image/png"
+    />
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="#abstract">Abstract</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#examples">SAGI-D Examples</a>
+      <button class="toggle-btn" onclick="toggleDarkMode()">
+        Toggle Dark Mode
+      </button>
+    </nav>
+
+    <!-- Step 1 Start: Header Part -->
+    <div class="header">
+      <h1>SAGI: Semantically Aligned and Uncertainty Guided AI Image Inpainting</h1>
+      <div class="authors">
+        <p>
+          <a href="#">Paschalis Giakoumoglou</a><sup>1,2</sup>,
+          <a href="#">Dimitrios Karageorgiou</a><sup>2</sup>,
+          <a href="#">Symeon Papadopoulos</a><sup>2</sup>,
+          <a href="#">Panagiotis C. Petrantonakis</a><sup>1</sup>
+        </p>
+        <p>
+          <sup>1</sup>Department of Electrical and Computer Engineering, Aristotle University of Thessaloniki<br>
+          <sup>2</sup>Information Technologies Institute, CERTH
+        </p>
+        <p>
+          <sup>1</sup><a href="mailto:giakoupg@ece.auth.gr">giakoupg@ece.auth.gr</a>, 
+          <a href="mailto:ppetrant@ece.auth.gr">ppetrant@ece.auth.gr</a><br>
+          <sup>2</sup><a href="mailto:giakoupg@iti.gr">giakoupg@iti.gr</a>, 
+          <a href="mailto:dkarageo@iti.gr">dkarageo@iti.gr</a>, 
+          <a href="mailto:papadop@iti.gr">papadop@iti.gr</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Step 2 Start: Button for links -->
+    <div class="buttons">
+      <a href="https://arxiv.org/abs/2502.06593" target="_blank">Paper</a>
+      <a href="https://github.com/mever-team/SAGI" target="_blank">Code</a>
+      <a href="https://www.kaggle.com/datasets/giakop/sagi-d/data" target="_blank">Dataset</a>
+      <a href="#bibtex">BibTex</a>
+    </div>
+
+    <!-- Step 3 Start: Add your paper abstract -->
+    <div class="abstract" id="abstract">
+      <h2>Abstract</h2>
+      <p>Recent advancements in generative AI have made text-guided image inpainting—adding, removing, or altering image regions using textual prompts—widely accessible. However, generating semantically correct photorealistic imagery, typically requires carefully-crafted prompts and iterative refinement by evaluating the realism of the generated content - tasks commonly performed by humans. To automate the generative process, we propose Semantically Aligned and Uncertainty Guided AI Image Inpainting (SAGI), a model-agnostic pipeline, to sample prompts from a distribution that closely aligns with human perception and to evaluate the generated content and discard those that deviate from such a distribution, which we approximate using pretrained Large Language Models and Vision-Language Models. By applying this pipeline on multiple state-of-the-art inpainting models, we create the SAGI Dataset (SAGI-D), currently the largest and most diverse dataset of AI-generated inpaintings, comprising over 95k inpainted images and a human-evaluated subset. Our experiments show that semantic alignment significantly improves image quality and aesthetics, while uncertainty guidance effectively identifies realistic manipulations — human ability to distinguish inpainted images from real ones drops from 74% to 35% in terms of accuracy, after applying our pipeline. Moreover, using SAGI-D for training several image forensic approaches increases in-domain detection performance on average by 37.4% and out-of-domain generalization by 26.1% in terms of IoU, also demonstrating its utility in countering malicious exploitation of generative AI.</p>
+    </div>
+
+    <!-- Step 4 Start: Add your paper methodology -->
+    <div class="content-section" id="methodology">
+      <h2>Methodology</h2>
+      <p>We propose SAGI, a unified framework integrating two main components:</p>
+      <ul>
+        <li><strong>Semantically Aligned Object Replacement (SAOR):</strong> Leverages image semantics and LLMs to create context-aware prompts, producing higher aesthetic quality than simple object labels and captions.</li>
+        <li><strong>Uncertainty Guided Deceptiveness Assessment (UGDA):</strong> A realism assessment method that uses vision-language models to compare inpainted images with originals, identifying convincing manipulations.</li>
+      </ul>
+      
+      <p>Using the proposed pipeline, we introduce SAGI-D the first semantically aligned deceptive dataset for AI-generated inpainting detection, designed to evaluate the effectiveness of our components. The dataset leverages Semantically Aligned Object Replacement (SAOR) for context-aware prompt generation and Uncertainty-Guided Deceptiveness Assessment (UGDA) for realism evaluation, ensuring high-quality and diverse inpainted images.<p>
+      
+      <!-- Pipeline Overview Image -->
+      <div style="text-align: center; margin: 2rem 0;">
+        <img src="Assets/full_pipeline_v2.svg" alt="SAGI Pipeline Overview" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+        <p style="margin-top: 1rem; font-style: italic; color: #666;">SAGI Pipeline Overview: Semantically Aligned Object Replacement (top) and Uncertainty Guided Deceptiveness Assessment (bottom)</p>
+      </div>
+    </div>
+
+    <!-- SAGI-D Examples Section -->
+    <div class="content-section" id="examples">
+      <h2>SAGI-D Examples</h2>
+      <p>The following examples showcase the high-quality inpainted images generated using our SAGI pipeline across different state-of-the-art inpainting models. Each pair shows the original image (left) and the inpainted result (right), along with the semantically aligned prompt used for generation.</p>
+      
+      <!-- BrushNet Results -->
+      <h3 style="margin: 1.5rem 0 1rem 0; color: #333;">BrushNet</h3>
+      <div style="display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/000_final_paper_supp_good_000000000871.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/000_final_paper_supp_good_coco_000000003742_brushnet_realisticvision_1_None.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+          <p style="font-size: 0.9rem; font-style: italic; color: #666; text-align: center;">"a juicy orange to add a vibrant pop of color to the composition"</p>
+        </div>
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/001_final_paper_supp_good_r0b0e2ba5t_Q85.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/001_final_paper_supp_good_raise_r0b0e2ba5t_Q85_brushnet_sd1-5_1_None.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+          <p style="font-size: 0.9rem; font-style: italic; color: #666; text-align: center;">"a majestic snow-capped mountain to create a scenic landscape"</p>
+        </div>
+      </div>
+      
+      <!-- PowerPaint Results -->
+      <h3 style="margin: 1.5rem 0 1rem 0; color: #333;">PowerPaint</h3>
+      <div style="display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/003_final_paper_supp_good_000000002627_val.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/003_final_paper_supp_good_coco_000000010092_powerpaint_realisticvision_1_None.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+          <p style="font-size: 0.9rem; font-style: italic; color: #666; text-align: center;">"a cozy blanket and fluffy pillows to complete the bedroom scene"</p>
+        </div>
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/004_final_paper_supp_good_r0a19cb85t_Q69.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/004_final_paper_supp_good_raise_r0a19cb85t_Q69_powerpaint_realisticvision_1_None.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+          <p style="font-size: 0.9rem; font-style: italic; color: #666; text-align: center;">"a grand marble fountain surrounded by lush greenery"</p>
+        </div>
+      </div>
+      
+      <!-- HD-Painter Results -->
+      <h3 style="margin: 1.5rem 0 1rem 0; color: #333;">HD-Painter</h3>
+      <div style="display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/006_final_paper_supp_good_000000001948_val.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/006_final_paper_supp_good_coco_000000203546_hdpainter_sd1-5_1_Upscaled.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+          <p style="font-size: 0.9rem; font-style: italic; color: #666; text-align: center;">"a playful otter swimming in the river stream"</p>
+        </div>
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/007_final_paper_supp_good_ra09acb48t_Q71.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/007_final_paper_supp_good_raise_ra09acb48t_Q71_hdpainter_dreamshaper_1_Upscaled.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+          <p style="font-size: 0.9rem; font-style: italic; color: #666; text-align: center;">"a cluster of small red berries growing in the grass"</p>
+        </div>
+      </div>
+      
+      <!-- ControlNet Results -->
+      <h3 style="margin: 1.5rem 0 1rem 0; color: #333;">ControlNet</h3>
+      <div style="display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/009_final_paper_supp_good_000000003335_val.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/009_final_paper_supp_good_coco_000000001425_controlnet_sd1-5_1_None.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+          <p style="font-size: 0.9rem; font-style: italic; color: #666; text-align: center;">"a fresh, delicious sandwich to complete the meal"</p>
+        </div>
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/010_final_paper_supp_good_rc7a1f2c6t_Q90.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/010_final_paper_supp_good_raise_rc7a1f2c6t_Q90_controlnet_sd1-5_1_None.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+          <p style="font-size: 0.9rem; font-style: italic; color: #666; text-align: center;">"a clear blue sky to enhance the mountain landscape"</p>
+        </div>
+      </div>
+      
+      <!-- Inpaint-Anything Results -->
+      <h3 style="margin: 1.5rem 0 1rem 0; color: #333;">Inpaint-Anything</h3>
+      <div style="display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/012_final_paper_supp_good_000000040661.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/012_final_paper_supp_good_coco_000000045808_inpaintanything_sd2_1_None.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+          <p style="font-size: 0.9rem; font-style: italic; color: #666; text-align: center;">"a delicious cheeseburger to make the meal even more tempting"</p>
+        </div>
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/013_final_paper_supp_good_r0ab7202ft_Q86.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/013_final_paper_supp_good_raise_r0ab7202ft_Q86_inpaintanything_sd2_1_None.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+          <p style="font-size: 0.9rem; font-style: italic; color: #666; text-align: center;">"a lush green meadow, adding a touch of nature to the serene landscape"</p>
+        </div>
+      </div>
+      
+      <!-- Remove-Anything Results -->
+      <h3 style="margin: 1.5rem 0 1rem 0; color: #333;">Remove-Anything</h3>
+      <div style="display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/015_final_paper_supp_good_000000000338_val.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/015_final_paper_supp_good_coco_000000068933_removeanything_lama_1_None.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+        </div>
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="Assets/016_final_paper_supp_good_rd7513783t_Q94.jpg" alt="Original" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+            <img src="Assets/016_final_paper_supp_good_raise_rd7513783t_Q94_removeanything_lama_1_None.jpg" alt="Inpainted" style="width: 48%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 7 Start: Add your paper references -->
+    <div class="bibtex-section" id="bibtex">
+      <h2>BibTeX</h2>
+      <button class="bibtex-copy-button" onclick="copyBibTeX()">
+        Copy to Clipboard
+      </button>
+      <pre>
+        <code class="language-bibtex">
+@misc{giakoumoglou2025sagisemanticallyaligneduncertainty,
+      title={SAGI: Semantically Aligned and Uncertainty Guided AI Image Inpainting}, 
+      author={Paschalis Giakoumoglou and Dimitrios Karageorgiou and Symeon Papadopoulos and Panagiotis C. Petrantonakis},
+      year={2025},
+      eprint={2502.06593},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2502.06593}, 
+}
+        </code>
+      </pre>
+    </div>
+
+    <!-- Step 9 Start: Add your paper acknowledgement -->
+    <div class="content-section" id="acknowledgement">
+      <h2>Acknowledgement</h2>
+      <p>This work was supported by the Horizon Europe vera.ai project (grant no.101070093) and by the High Performance Computing infrastructure of the Aristotle University of Thessaloniki.</p>
+    </div>
+
+    <div class="footer">
+      <!-- Step 10 Start: Edit footer -->
+      <p>© 2024 Aristotle University of Thessaloniki & CERTH. All rights reserved.</p>
+      <!-- Step 10 End: Edit footer -->
+      <!-- Please do not remove below code. -->
+      <p>
+        Website template free to borrow from
+        <a
+          href="https://github.com/indramal/iNdra-GitHub-Page-Template-For-Resarch"
+          >here</a
+        >.
+      </p>
+    </div>
+
+    <!-- Do not edit below button -->
+    <button class="scrollUpBtn" id="scrollUpBtn" onclick="scrollToTop()">
+      ⬆
+    </button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
