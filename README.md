@@ -11,9 +11,6 @@ SAGI is a model-agnostic pipeline for generating high-quality AI inpainted image
 
 <img src='https://github.com/mever-team/SAGI/raw/main/Assets/full_pipeline_v2.svg'/>
 
-## Note
-
-The dataset has been temporarily removed from Kaggle. Contact giakoupg@iti.gr for full access to the dataset
 
 ## 📧 Contact
 
